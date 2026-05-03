@@ -1,5 +1,6 @@
 from flask import Flask,request,url_for,redirect,render_template,flash,session,send_file
 from flask_session import Session
+from werkzeug.utils import secure_filename #it checks wheather filename consist of / or unwanted characters
 from otp import generateotp
 import flask_excel as excel
 import re
@@ -9,9 +10,12 @@ from io import BytesIO
 import mysql.connector 
 # mydb=mysql.connector.connect(user='root',host='localhost',password='root',database='snm',)
 from mysql.connector import (connection)
-mydb=connection.MySQLConnection(user='root',host='localhost',password='root',database='snm',)
-
-
+mydb=connection.MySQLConnection(user='flaskuser',host='localhost',password='Root@123',database='snm',)
+import os
+BASE_DIR=os.path.abspath(os.path.dirname(__file__))
+UPLOAD_FOLDER=os.path.join(BASE_DIR,'static','uploads_data')
+ALLOWED_EXTENSIONS={'png','jpg','jpeg','gif','webp'}
+MAX_CONTENT_LENGTH=6 * 1024*1024 #6MB FILE 
 app=Flask(__name__)
 excel.init_excel(app)
 # app.secret_key='code9'
@@ -487,4 +491,5 @@ def logout():
     else:
         flash('pls login to logout')
         return redirect(url_for('login'))
-app.run(debug=True,use_reloader=True)
+if __name__ =='__main__':
+    app.run()
