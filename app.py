@@ -10,7 +10,7 @@ from io import BytesIO
 import mysql.connector 
 # mydb=mysql.connector.connect(user='root',host='localhost',password='root',database='snm',)
 from mysql.connector import (connection)
-mydb=connection.MySQLConnection(user='root',host='localhost',password='root',database='snm')
+mydb=connection.MySQLConnection(user='flaskuser',host='localhost',password='Root@123',database='flaskdb')
 import os
 BASE_DIR=os.path.abspath(os.path.dirname(__file__))
 UPLOAD_FOLDER=os.path.join(BASE_DIR,'static','uploads_data')
@@ -492,4 +492,4 @@ def logout():
         flash('pls login to logout')
         return redirect(url_for('login'))
 if __name__ =='__main__':
-    app.run()
+    app.run()   
